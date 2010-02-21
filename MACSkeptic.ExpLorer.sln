@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MACSkeptic.ExpLorer", "MACSkeptic.ExpLorer\MACSkeptic.ExpLorer.csproj", "{F3563206-D7A2-46CD-A4A7-820CE0494FFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MACSkeptic.ExpLorer.Tests", "MACSkeptic.ExpLorer.Tests\MACSkeptic.ExpLorer.Tests.csproj", "{6E7939F5-E7D2-462B-8D39-7C6CE01B6F5B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5A93801-E2CC-4EAB-B8FB-E3CBD7078514}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		MACSkeptic.ExpLorer.vsmdi = MACSkeptic.ExpLorer.vsmdi
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = MACSkeptic.ExpLorer.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3563206-D7A2-46CD-A4A7-820CE0494FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3563206-D7A2-46CD-A4A7-820CE0494FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3563206-D7A2-46CD-A4A7-820CE0494FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3563206-D7A2-46CD-A4A7-820CE0494FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E7939F5-E7D2-462B-8D39-7C6CE01B6F5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E7939F5-E7D2-462B-8D39-7C6CE01B6F5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E7939F5-E7D2-462B-8D39-7C6CE01B6F5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E7939F5-E7D2-462B-8D39-7C6CE01B6F5B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
