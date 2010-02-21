@@ -93,11 +93,16 @@ namespace MACSkeptic.ExpLorer
 
         public Configuration Get(string name)
         {
-            if (!Underlings.Keys.Contains(name))
+            var query = name;
+            if (!Underlings.Keys.Contains(query))
             {
-                throw new InvalidOrMissingConfigurationException(this, name);
+                query = name.ToLower();
+                if (!Underlings.Keys.Contains(query))
+                {
+                    throw new InvalidOrMissingConfigurationException(this, name);
+                }
             }
-            return Underlings[name];
+            return Underlings[query];
         }
 
         public override bool Equals(object something)

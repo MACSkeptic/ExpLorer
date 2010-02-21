@@ -87,5 +87,13 @@ namespace MACSkeptic.ExpLorer.Tests
             Assert.IsFalse(database4.Equals(database1));
             Assert.IsFalse(database4.Equals(database2));
         }
+
+        [TestMethod]
+        public void NameShouldNotBeCaseSensitive()
+        {
+            var connections = new Configuration("connections");
+            var database = new Configuration("database", "localhost", connections);
+            Assert.AreEqual(database, connections.Get("DaTabase"));
+        }
     }
 }

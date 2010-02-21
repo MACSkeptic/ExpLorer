@@ -7,7 +7,6 @@ namespace MACSkeptic.ExpLorer.Parsers
 {
     public interface IConfigurationParser
     {
-        Configuration LoadGlobal(string path);
-        Configuration LoadLocal(string path);
+        Configuration LoadFrom(string path);
     }
 }
