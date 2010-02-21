@@ -1,13 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using MACSkeptic.ExpLorer.Utils.Extensions;
 
 namespace MACSkeptic.ExpLorer.Parsers
 {
     public class LoreConfigurationParser : IConfigurationParser
     {
-        public Configuration LoadFrom(string path)
+        public virtual Configuration LoadFrom(string path)
         {
             var lore = Directory.GetFiles(path, "*.lore").First();
             var loreFile = new FileInfo(lore);
@@ -15,6 +16,11 @@ namespace MACSkeptic.ExpLorer.Parsers
 
             ParseFile(loreFile, loreConfiguration);
             return loreConfiguration;
+        }
+
+        public virtual Configuration LoadFromCurrentAssembly()
+        {
+            return LoadFrom(new FileInfo(Assembly.GetCallingAssembly().Location).Directory.FullName);
         }
 
         private void ParseFile(FileInfo file, Configuration configuration)

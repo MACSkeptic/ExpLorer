@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace MACSkeptic.ExpLorer.Utils.Extensions
 {
@@ -11,35 +13,33 @@ namespace MACSkeptic.ExpLorer.Utils.Extensions
                 return @string;
             }
 
-            var resultAfterFields = @string;
+            var regex = new Regex(@"\#\{(\w+)\}");
+            
+            if (!regex.IsMatch(@string))
+            {
+                return @string;
+            }
 
-            arguments.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public).
-                ExecuteForEach(
-                field =>
-                    {
-                        var placeholder = "#{" + field.Name + "}";
-                        var value = field.GetValue(arguments);
-                        var replacement = value != null
-                                              ? value.ToString()
-                                              : string.Empty;
-                        resultAfterFields = resultAfterFields.Replace(placeholder, replacement);
-                    });
+            var matches = regex.Matches(@string);
+            var newString = @string;
 
-            var resultAfterProperties = resultAfterFields;
+            foreach (var match in matches.Cast<Match>())
+            {
+                var placeholder = match.Groups[0].Value;
+                var replacementTarget = match.Groups[1].Value;
+                string replacement = ReflectAboutTheValue(arguments, replacementTarget);
+                newString = newString.Replace(placeholder, replacement);
+            }
 
-            arguments.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public).
-                ExecuteForEach(
-                property =>
-                    {
-                        var placeholder = "#{" + property.Name + "}";
-                        var value = property.GetValue(arguments, null);
-                        var replacement = value != null
-                                              ? value.ToString()
-                                              : string.Empty;
-                        resultAfterProperties = resultAfterProperties.Replace(placeholder, replacement);
-                    });
+            return newString;
+        }
 
-            return resultAfterProperties;
+        private static string ReflectAboutTheValue(object arguments, string replacementTarget)
+        {
+            return arguments.GetType().GetProperty(
+                       replacementTarget, 
+                       BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)
+                       .GetValue(arguments, null) as string;
         }
 
         internal static bool IsEmpty(this string @string)
