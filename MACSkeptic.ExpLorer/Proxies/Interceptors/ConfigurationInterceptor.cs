@@ -1,5 +1,6 @@
+using System;
 using Castle.Core.Interceptor;
-using Castle.DynamicProxy;
+using MACSkeptic.ExpLorer.Utils.Extensions;
 
 namespace MACSkeptic.ExpLorer.Proxies.Interceptors
 {
@@ -14,32 +15,51 @@ namespace MACSkeptic.ExpLorer.Proxies.Interceptors
 
         public void Intercept(IInvocation invocation)
         {
-            var method = invocation.Method;
-
-            if (!method.Name.Contains("get_"))
+            if (MethodWasIntercepted(invocation))
             {
-                invocation.Proceed();
-                return;
-            }
-
-            var name = method.Name.Replace("get_", string.Empty);
-            var type = method.ReturnType;
-
-            if (type.IsInterface)
-            {
-                invocation.ReturnValue = new ProxyGenerator().CreateInterfaceProxyWithoutTarget(
-                    type, new ConfigurationInterceptor(_configuration.Get(name)));
-                return;
-            }
-
-            if (typeof (string) == type)
-            {
-                invocation.ReturnValue = _configuration.Get(name).Value;
                 return;
             }
 
             invocation.Proceed();
             return;
+        }
+
+        private bool MethodWasIntercepted(IInvocation invocation)
+        {
+            var method = invocation.Method;
+            var name = method.WhatGives();
+
+            if (name.IsEmpty())
+            {
+                return false;
+            }
+
+            var type = method.ReturnType;
+
+            return ItReturnsAnInterface(type, name, invocation) ||
+                   ItReturnsAString(type, name, invocation);
+        }
+
+        private bool ItReturnsAnInterface(Type type, string name, IInvocation invocation)
+        {
+            if (!type.IsInterface)
+            {
+                return false;
+            }
+
+            invocation.ReturnValue = ConfigurationProxy.For(type, _configuration.Get(name));
+            return true;
+        }
+
+        private bool ItReturnsAString(Type type, string name, IInvocation invocation)
+        {
+            if (typeof (string) != type)
+            {
+                return false;
+            }
+
+            invocation.ReturnValue = _configuration.Get(name).Value;
+            return true;
         }
     }
 }

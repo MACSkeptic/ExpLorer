@@ -1,4 +1,5 @@
-﻿using Castle.DynamicProxy;
+﻿using System;
+using Castle.DynamicProxy;
 using MACSkeptic.ExpLorer.Parsers;
 using MACSkeptic.ExpLorer.Proxies.Interceptors;
 
@@ -10,6 +11,12 @@ namespace MACSkeptic.ExpLorer.Proxies
             where T : class
         {
             return new ProxyGenerator().CreateInterfaceProxyWithoutTarget<T>(
+                new ConfigurationInterceptor(configuration));
+        }
+
+        public static object For(Type type, Configuration configuration)
+        {
+            return new ProxyGenerator().CreateInterfaceProxyWithoutTarget(type,
                 new ConfigurationInterceptor(configuration));
         }
 
