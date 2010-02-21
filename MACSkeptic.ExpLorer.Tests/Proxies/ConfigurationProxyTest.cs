@@ -11,18 +11,19 @@ namespace MACSkeptic.ExpLorer.Tests.Proxies
         [TestMethod]
         public void ProxyForConfigurationShouldRespondCorrectly()
         {
-            var configuration = new Configuration("configuration");
-            var infrastructure = new Configuration("infrastructure", string.Empty, configuration);
-            var connections = new Configuration("connections", string.Empty, infrastructure);
-            var email = new Configuration("email", string.Empty, infrastructure);
-            var smtp = new Configuration("smtp", "mass-relay", email);
-            var database = new Configuration("database", "localhost", connections);
-            var amqp = new Configuration("amqp", "remotehost", connections);
-
+            var answer = new Configuration("answer", "42");
+            var configuration = new Configuration("configuration", c => c.With(answer));
+            var infrastructure = new Configuration("infrastructure", c => c.BelongingTo(configuration));
+            var connections = new Configuration("connections", c => c.BelongingTo(infrastructure));
+            var email = new Configuration("email", c => c.BelongingTo(infrastructure));
+            var smtp = new Configuration("smtp", "mass-relay", c => c.BelongingTo(email));
+            var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
+            var amqp = new Configuration("amqp", "remotehost", c => c.BelongingTo(connections));
             var proxy = ConfigurationProxy.For<IConfiguration>(configuration);
             Assert.AreEqual(database.Value, proxy.Infrastructure.Connections.Database);
             Assert.AreEqual(amqp.Value, proxy.Infrastructure.Connections.Amqp);
             Assert.AreEqual(smtp.Value, proxy.Infrastructure.Email.Smtp);
+            Assert.AreEqual(answer.Value, proxy.Answer);
         }
 
         [TestMethod]
@@ -33,12 +34,11 @@ namespace MACSkeptic.ExpLorer.Tests.Proxies
         public void ProxyForParserShouldRespondCorrectly()
         {
             var configuration = new Configuration("configuration");
-            var infrastructure = new Configuration("infrastructure", string.Empty, configuration);
-            var connections = new Configuration("connections", string.Empty, infrastructure);
-            var email = new Configuration("email", string.Empty, infrastructure);
-            var smtp = new Configuration("smtp", "massive-relay", email);
-            var database = new Configuration("database", "localhost", connections);
-
+            var infrastructure = new Configuration("infrastructure", c => c.BelongingTo(configuration));
+            var connections = new Configuration("connections", c => c.BelongingTo(infrastructure));
+            var email = new Configuration("email", c => c.BelongingTo(infrastructure));
+            var smtp = new Configuration("smtp", "massive-relay", c => c.BelongingTo(email));
+            var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
             var proxy = ConfigurationProxy.For<IConfiguration>(new LoreConfigurationParser());
             Assert.AreEqual(database.Value, proxy.Infrastructure.Connections.Database);
             Assert.AreEqual(smtp.Value, proxy.Infrastructure.Email.Smtp);

@@ -18,8 +18,8 @@ namespace MACSkeptic.ExpLorer.Tests
         public void FullNameShouldBeTheFullyQualifiedNameOfTheConfiguration()
         {
             var connections = new Configuration("connections");
-            var database = new Configuration("database", "localhost", connections);
-            var infrastructure = new Configuration("infrastructure", connections);
+            var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
+            var infrastructure = new Configuration("infrastructure", c => c.With(connections));
             Assert.AreEqual("infrastructure", infrastructure.FullName);
             Assert.AreEqual("infrastructure.connections", connections.FullName);
             Assert.AreEqual("infrastructure.connections.database", database.FullName);
@@ -29,7 +29,7 @@ namespace MACSkeptic.ExpLorer.Tests
         public void ShouldBeAbleToGetAValidConfiguration()
         {
             var connections = new Configuration("connections");
-            var database = new Configuration("database", "localhost", connections);
+            var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
             Assert.AreSame(database, connections.Get("database"));
         }
 
@@ -38,7 +38,7 @@ namespace MACSkeptic.ExpLorer.Tests
         public void ShouldThrowAnExceptionWhenAConfigurationIsMissing()
         {
             var infrastructure = new Configuration("infrastructure");
-            var connections = new Configuration("connections", string.Empty, infrastructure);
+            var connections = new Configuration("connections", c => c.BelongingTo(infrastructure));
 
             try
             {
@@ -59,8 +59,8 @@ namespace MACSkeptic.ExpLorer.Tests
         public void ShouldBeEqualToAnotherConfigurationIfItHasTheSameFullNameAndValue()
         {
             var connections = new Configuration("connections");
-            var database1 = new Configuration("database", "localhost", connections);
-            var database2 = new Configuration("database", "localhost", connections);
+            var database1 = new Configuration("database", "localhost", c => c.BelongingTo(connections));
+            var database2 = new Configuration("database", "localhost", c => c.BelongingTo(connections));
 
             Assert.IsTrue(database2.Equals(database1));
             Assert.IsTrue(database1.Equals(database2));
@@ -71,10 +71,10 @@ namespace MACSkeptic.ExpLorer.Tests
         {
             var connections = new Configuration("connections");
             var infrastructure = new Configuration("infrastructure");
-            var database1 = new Configuration("database", "localhost", connections);
-            var database2 = new Configuration("database", "localhost", infrastructure);
-            var database3 = new Configuration("database", "remotehost", connections);
-            var database4 = new Configuration("databases", "localhost", infrastructure);
+            var database1 = new Configuration("database", "localhost", c => c.BelongingTo(connections));
+            var database2 = new Configuration("database", "localhost", c => c.BelongingTo(infrastructure));
+            var database3 = new Configuration("database", "remotehost", c => c.BelongingTo(connections));
+            var database4 = new Configuration("databases", "localhost", c => c.BelongingTo(infrastructure));
 
             Assert.IsFalse(database2.Equals(database1));
             Assert.IsFalse(database1.Equals(database2));
@@ -92,7 +92,7 @@ namespace MACSkeptic.ExpLorer.Tests
         public void NameShouldNotBeCaseSensitive()
         {
             var connections = new Configuration("connections");
-            var database = new Configuration("database", "localhost", connections);
+            var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
             Assert.AreEqual(database, connections.Get("DaTabase"));
         }
     }

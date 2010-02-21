@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using MACSkeptic.ExpLorer.Utils.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MACSkeptic.ExpLorer.Utils.Extensions;
 
 namespace MACSkeptic.ExpLorer.Tests.Utils.Extensions
 {
@@ -14,7 +9,7 @@ namespace MACSkeptic.ExpLorer.Tests.Utils.Extensions
         [TestMethod]
         public void ShouldProperlyApplyArgumentsToAString()
         {
-            Assert.AreEqual("macskeptic ;)!", "macskeptic #{wink}#{bang}".ApplyArguments(new { wink = ";)", bang = "!" }));
+            Assert.AreEqual("macskeptic ;)!", "macskeptic #{wink}#{bang}".ApplyArguments(new {wink = ";)", bang = "!"}));
         }
 
         [TestMethod]
@@ -26,7 +21,7 @@ namespace MACSkeptic.ExpLorer.Tests.Utils.Extensions
         [TestMethod]
         public void NullStringShouldBeEmpty()
         {
-            Assert.IsTrue(((string) null).IsEmpty());
+            Assert.IsTrue(((string)null).IsEmpty());
         }
 
         [TestMethod]

@@ -32,7 +32,7 @@ namespace MACSkeptic.ExpLorer.Proxies.Interceptors
                 return;
             }
 
-            if (typeof(string) == type)
+            if (typeof (string) == type)
             {
                 invocation.ReturnValue = _configuration.Get(name).Value;
                 return;

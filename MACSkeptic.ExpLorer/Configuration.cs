@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using MACSkeptic.ExpLorer.Parameters;
 using MACSkeptic.ExpLorer.Utils.Extensions;
 
 namespace MACSkeptic.ExpLorer
@@ -10,27 +12,26 @@ namespace MACSkeptic.ExpLorer
 
         private IDictionary<string, Configuration> _underlings;
 
+        public Configuration(string name)
+            : this(name, c => { })
+        {
+        }
+
         public Configuration(string name, string value)
+            : this(name, value, c => { })
+        {
+        }
+
+        public Configuration(string name, Action<ConfigurationParameters> parameters)
+            : this(name, string.Empty, parameters)
+        {
+        }
+
+        public Configuration(string name, string value, Action<ConfigurationParameters> parameters)
         {
             _name = name;
             _value = value;
-        }
-
-        public Configuration(string name, params Configuration[] underlings)
-        {
-            _name = name;
-            _value = null;
-            underlings.ExecuteForEach(Add);
-        }
-
-        public Configuration(string name, string value, Configuration @base)
-        {
-            _name = name;
-            _value = value;
-            if (@base != null)
-            {
-                @base.Add(this);
-            }
+            parameters.Invoke(new ConfigurationParameters(this));
         }
 
         public virtual string Value { get { return _value; } }
@@ -72,6 +73,7 @@ namespace MACSkeptic.ExpLorer
 
         public virtual void Remove(Configuration configuration)
         {
+            throw new NotImplementedException();
         }
 
         public virtual string ToString(bool shallow)

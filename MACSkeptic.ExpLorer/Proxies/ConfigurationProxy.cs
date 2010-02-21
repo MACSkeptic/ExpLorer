@@ -19,6 +19,5 @@ namespace MACSkeptic.ExpLorer.Proxies
             return new ProxyGenerator().CreateInterfaceProxyWithoutTarget<T>(
                 new ConfigurationInterceptor(parser.LoadFromCurrentAssembly()));
         }
-
     }
 }

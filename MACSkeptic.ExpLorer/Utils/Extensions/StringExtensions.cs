@@ -14,7 +14,7 @@ namespace MACSkeptic.ExpLorer.Utils.Extensions
             }
 
             var regex = new Regex(@"\#\{(\w+)\}");
-            
+
             if (!regex.IsMatch(@string))
             {
                 return @string;
@@ -27,7 +27,7 @@ namespace MACSkeptic.ExpLorer.Utils.Extensions
             {
                 var placeholder = match.Groups[0].Value;
                 var replacementTarget = match.Groups[1].Value;
-                string replacement = ReflectAboutTheValue(arguments, replacementTarget);
+                var replacement = ReflectAboutTheValue(arguments, replacementTarget);
                 newString = newString.Replace(placeholder, replacement);
             }
 
@@ -37,7 +37,7 @@ namespace MACSkeptic.ExpLorer.Utils.Extensions
         private static string ReflectAboutTheValue(object arguments, string replacementTarget)
         {
             return arguments.GetType().GetProperty(
-                       replacementTarget, 
+                       replacementTarget,
                        BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)
                        .GetValue(arguments, null) as string;
         }

@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Configuration.cs" />
     <Compile Include="InvalidOrMissingConfigurationException.cs" />
+    <Compile Include="Parameters\ConfigurationParameters.cs" />
     <Compile Include="Parsers\IConfigurationParser.cs" />
     <Compile Include="Parsers\LoreConfigurationParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

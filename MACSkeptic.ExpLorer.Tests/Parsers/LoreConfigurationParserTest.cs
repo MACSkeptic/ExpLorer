@@ -10,11 +10,11 @@ namespace MACSkeptic.ExpLorer.Tests.Parsers
         public void ShouldParseAChainOfLoreAndTales()
         {
             var configuration = new Configuration("configuration");
-            var infrastructure = new Configuration("infrastructure", string.Empty, configuration);
-            var connections = new Configuration("connections", string.Empty, infrastructure);
-            var email = new Configuration("email", string.Empty, infrastructure);
-            var smtp = new Configuration("smtp", "mass-relay", email);
-            var database = new Configuration("database", "localhost", connections);
+            var infrastructure = new Configuration("infrastructure", c => c.BelongingTo(configuration));
+            var connections = new Configuration("connections", c => c.BelongingTo(infrastructure));
+            var email = new Configuration("email", c => c.BelongingTo(infrastructure));
+            var smtp = new Configuration("smtp", "mass-relay", c => c.BelongingTo(email));
+            var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
 
             var parser = new LoreConfigurationParser();
             var loadedConfiguration = parser.LoadFrom(@"Fixtures\ConfigurationFiles");
@@ -31,11 +31,11 @@ namespace MACSkeptic.ExpLorer.Tests.Parsers
         public void ShouldParseAChainOfLoreAndTalesFromTheCurrentAssemblyPath()
         {
             var configuration = new Configuration("configuration");
-            var infrastructure = new Configuration("infrastructure", string.Empty, configuration);
-            var connections = new Configuration("connections", string.Empty, infrastructure);
-            var email = new Configuration("email", string.Empty, infrastructure);
-            var smtp = new Configuration("smtp", "massive-relay", email);
-            var database = new Configuration("database", "localhost", connections);
+            var infrastructure = new Configuration("infrastructure", c => c.BelongingTo(configuration));
+            var connections = new Configuration("connections", c => c.BelongingTo(infrastructure));
+            var email = new Configuration("email", c => c.BelongingTo(infrastructure));
+            var smtp = new Configuration("smtp", "massive-relay", c => c.BelongingTo(email));
+            var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
 
             var parser = new LoreConfigurationParser();
             var loadedConfiguration = parser.LoadFromCurrentAssembly();

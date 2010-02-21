@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Reflection;
 using MACSkeptic.ExpLorer.Utils.Extensions;
@@ -44,7 +43,7 @@ namespace MACSkeptic.ExpLorer.Parsers
 
                 var newName = line.Trim();
                 var newFile = new FileInfo(Path.Combine(file.Directory.FullName, newName + ".tale"));
-                var newConfiguration = new Configuration(newName, string.Empty, configuration);
+                var newConfiguration = new Configuration(newName, c => c.BelongingTo(configuration));
                 ParseFile(newFile, newConfiguration);
             }
         }
