@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("MACSkeptic.ExpLorer.Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Tests for reading configuration (lore/tale) files")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("MACSkeptic")]
 [assembly: AssemblyProduct("MACSkeptic.ExpLorer.Tests")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Mozair Alves do Carmo Junior - MACSkeptic 2010")]
+[assembly: AssemblyTrademark("MACSkeptic")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

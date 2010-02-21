@@ -1,0 +1,4 @@
+=== v1.0.0 (2010-02-21)
+	* Features
+		* Parse lore/tale file chains
+		* Dynamicaly creates proxies for interfaces based on a configuration chain
