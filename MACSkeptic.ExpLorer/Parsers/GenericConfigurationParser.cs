@@ -48,6 +48,25 @@ namespace MACSkeptic.ExpLorer.Parsers
                             Path.Combine(
                                 loreFile.Directory.FullName,
                                 loreFile.Name.Substring(0, 1).ToLower() + loreFile.Name.Substring(1)));
+
+                    if (!loreFile.Exists)
+                    {
+                        loreFile = new FileInfo(path);
+                        loreFile = new FileInfo(Path.Combine(loreFile.Directory.Parent.FullName, loreFile.Name));
+
+                        if (!loreFile.Exists)
+                        {
+                            loreFile = new FileInfo(Path.Combine(loreFile.Directory.FullName, loreFile.Name.ToLower()));
+                            if (!loreFile.Exists)
+                            {
+                                loreFile =
+                                    new FileInfo(
+                                        Path.Combine(
+                                            loreFile.Directory.FullName,
+                                            loreFile.Name.Substring(0, 1).ToLower() + loreFile.Name.Substring(1)));
+                            }
+                        }
+                    }
                 }
             }
             var loreConfiguration = new Configuration(loreFile.Name.Replace(MainConfigurationExtension, string.Empty));
