@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using MACSkeptic.ExpLorer.Parsers;
 
 namespace MACSkeptic.ExpLorer
@@ -27,7 +28,7 @@ namespace MACSkeptic.ExpLorer
                 type,
                 _parser.LoadFromFile(
                     Path.Combine(
-                        new FileInfo(type.Assembly.Location).Directory.FullName,
+                        new FileInfo(Assembly.GetExecutingAssembly().CodeBase.Replace("file:///", string.Empty)).Directory.FullName,
                         type.Name.Substring(1))));
         }
     }
