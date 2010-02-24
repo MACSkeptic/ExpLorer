@@ -5,6 +5,7 @@ using MACSkeptic.ExpLorer.Proxies.Interceptors;
 
 namespace MACSkeptic.ExpLorer.Proxies
 {
+    [Obsolete("As from v1.1.0 you should use 'MACSkeptic.ExpLorer.Sage' to create proxies instead")]
     public class ConfigurationProxy
     {
         public static T For<T>(Configuration configuration)

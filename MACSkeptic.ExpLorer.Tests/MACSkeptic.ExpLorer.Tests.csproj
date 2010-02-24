@@ -1,7 +1,7 @@
-﻿<Project DefaultTargets='Build' ToolsVersion='3.5' xmlns='http://schemas.microsoft.com/developer/msbuild/2003'>
+﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=' &apos;$(Configuration)&apos; == &apos;&apos; '>Debug</Configuration>
-    <Platform Condition=' &apos;$(Platform)&apos; == &apos;&apos; '>AnyCPU</Platform>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6E7939F5-E7D2-462B-8D39-7C6CE01B6F5B}</ProjectGuid>
@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
-  <PropertyGroup Condition=' &apos;$(Configuration)|$(Platform)&apos; == &apos;Debug|AnyCPU&apos; '>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=' &apos;$(Configuration)|$(Platform)&apos; == &apos;Release|AnyCPU&apos; '>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,69 +31,87 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include='Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL'>
+    <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>true</SpecificVersion>
       <HintPath>..\Libraries\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include='Castle.DynamicProxy2, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL'>
+    <Reference Include="Castle.DynamicProxy2, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>true</SpecificVersion>
       <HintPath>..\Libraries\Castle.DynamicProxy2.dll</HintPath>
     </Reference>
-    <Reference Include='Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'><SpecificVersion>false</SpecificVersion><HintPath>..\Libraries\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath></Reference>
-    <Reference Include='System'/>
-    <Reference Include='System.Core'>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>false</SpecificVersion>
+      <HintPath>..\Libraries\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=4.0.812.4, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include='System.Data'/>
-    <Reference Include='System.Xml'/>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include='ConfigurationTest.cs'/>
-    <Compile Include='Parsers\LoreConfigurationParserTest.cs'/>
-    <Compile Include='Properties\AssemblyInfo.cs'/>
-    <Compile Include='Proxies\ConfigurationProxyTest.cs'/>
-    <Compile Include='Proxies\Interfaces\IConfiguration.cs'/>
-    <Compile Include='Proxies\Interfaces\IConnections.cs'/>
-    <Compile Include='Proxies\Interfaces\IEmail.cs'/>
-    <Compile Include='Proxies\Interfaces\IInfrastructure.cs'/>
-    <Compile Include='Utils\Extensions\EnumerableExtensionsTest.cs'/>
-    <Compile Include='Utils\Extensions\StringExtensionsTest.cs'/>
+    <Compile Include="ConfigurationTest.cs" />
+    <Compile Include="Parsers\LoreConfigurationParserTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxies\ConfigurationProxyTest.cs" />
+    <Compile Include="Proxies\Interfaces\IConfiguration.cs" />
+    <Compile Include="Proxies\Interfaces\IConnections.cs" />
+    <Compile Include="Proxies\Interfaces\IEmail.cs" />
+    <Compile Include="Proxies\Interfaces\IInfrastructure.cs" />
+    <Compile Include="Proxies\Interfaces\IRightAnswerConfiguration.cs" />
+    <Compile Include="SageTest.cs" />
+    <Compile Include="Utils\Extensions\EnumerableExtensionsTest.cs" />
+    <Compile Include="Utils\Extensions\StringExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include='..\MACSkeptic.ExpLorer\MACSkeptic.ExpLorer.csproj'>
+    <ProjectReference Include="..\MACSkeptic.ExpLorer\MACSkeptic.ExpLorer.csproj">
       <Project>{F3563206-D7A2-46CD-A4A7-820CE0494FFD}</Project>
       <Name>MACSkeptic.ExpLorer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include='Fixtures\ConfigurationFiles\configuration.lore'>
+    <Content Include="Fixtures\ConfigurationFiles\configuration.lore">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include='Fixtures\ConfigurationFiles\connections.tale'>
+    <None Include="Fixtures\ConfigurationFiles\connections.tale">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include='Fixtures\ConfigurationFiles\email.tale'>
+    <None Include="Fixtures\ConfigurationFiles\email.tale">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include='Fixtures\ConfigurationFiles\FromAssembly\configuration.lore'>
+    <Content Include="Fixtures\ConfigurationFiles\FromAssembly\configuration.lore">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include='Fixtures\ConfigurationFiles\FromAssembly\connections.tale'>
+    <None Include="Fixtures\ConfigurationFiles\FromAssembly\connections.tale">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include='Fixtures\ConfigurationFiles\FromAssembly\email.tale'>
+    <None Include="Fixtures\ConfigurationFiles\FromAssembly\email.tale">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include='Fixtures\ConfigurationFiles\FromAssembly\infrastructure.tale'>
+    <None Include="Fixtures\ConfigurationFiles\FromAssembly\infrastructure.tale">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include='Fixtures\ConfigurationFiles\infrastructure.tale'>
+    <None Include="Fixtures\ConfigurationFiles\infrastructure.tale">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Fixtures\ConfigurationFiles\NoLores\connections.tale">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Fixtures\ConfigurationFiles\MultipleLores\WrongAnswerConfiguration.lore">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fixtures\ConfigurationFiles\MultipleLores\RightAnswerConfiguration.lore">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
-  <Import Project='$(MSBuildBinPath)\Microsoft.CSharp.targets'/>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

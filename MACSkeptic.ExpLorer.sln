@@ -11,6 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MACSkeptic.ExpLorer.vsmdi = MACSkeptic.ExpLorer.vsmdi
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta-Info", "Meta-Info", "{C973E432-24B1-4AAF-9E44-EBAAEBC8D8F8}"
+	ProjectSection(SolutionItems) = preProject
+		HISTORY.txt = HISTORY.txt
+		LICENSE.txt = LICENSE.txt
+		README.rdoc = README.rdoc
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = MACSkeptic.ExpLorer.vsmdi

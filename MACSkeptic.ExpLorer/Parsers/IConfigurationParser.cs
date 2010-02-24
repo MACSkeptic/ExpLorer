@@ -2,7 +2,8 @@
 {
     public interface IConfigurationParser
     {
-        Configuration LoadFrom(string path);
+        Configuration LoadFromPath(string path);
+        Configuration LoadFromFile(string path);
         Configuration LoadFromCurrentAssembly();
     }
 }

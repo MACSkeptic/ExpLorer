@@ -1,4 +1,12 @@
+=== v1.1.0 (2010-02-23)
+	* Features
+		* Added a sage (single entry point for automatically creating proxies from interfaces)
+		* Added a Coffee configuration file parser
+	* Comments
+		* Tried to remove as much static stuff as possible to improve testability
+
 === v1.0.0 (2010-02-21)
 	* Features
 		* Parse lore/tale file chains
 		* Dynamicaly creates proxies for interfaces based on a configuration chain
+		

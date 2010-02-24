@@ -1,11 +1,48 @@
-﻿using MACSkeptic.ExpLorer.Parsers;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using MACSkeptic.ExpLorer.Parsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MACSkeptic.ExpLorer.Utils.Extensions;
 
 namespace MACSkeptic.ExpLorer.Tests.Parsers
 {
     [TestClass]
     public class LoreConfigurationParserTest
     {
+        [TestMethod]
+        [ExpectedException(typeof(TooManyConfigurationFilesException))]
+        public void ShouldNotifyAboutAPathWithMultipleLoreFiles()
+        {
+            var parser = new LoreConfigurationParser();
+            try
+            {
+                parser.LoadFromPath(@"Fixtures\ConfigurationFiles\MultipleLores");
+            }
+            catch(Exception e)
+            {
+                Assert.AreEqual(@"Found too many configuration files: [Fixtures\ConfigurationFiles\MultipleLores\RightAnswerConfiguration.lore; Fixtures\ConfigurationFiles\MultipleLores\WrongAnswerConfiguration.lore]", e.Message);
+                throw;
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NoConfigurationFileException))]
+        public void ShouldNotifyAboutAPathWithNoLoreFiles()
+        {
+            var parser = new LoreConfigurationParser();
+            try
+            {
+                parser.LoadFromPath(@"Fixtures\ConfigurationFiles\NoLores");
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual("No configuration file was found on the directory: [#{path}]"
+                    .ApplyArguments(new { path = @"Fixtures\ConfigurationFiles\NoLores" }), e.Message);
+                throw;
+            }
+        }
+
         [TestMethod]
         public void ShouldParseAChainOfLoreAndTales()
         {
@@ -17,7 +54,7 @@ namespace MACSkeptic.ExpLorer.Tests.Parsers
             var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
 
             var parser = new LoreConfigurationParser();
-            var loadedConfiguration = parser.LoadFrom(@"Fixtures\ConfigurationFiles");
+            var loadedConfiguration = parser.LoadFromPath(@"Fixtures\ConfigurationFiles");
 
             Assert.AreEqual(smtp, loadedConfiguration.Get("infrastructure").Get("email").Get("smtp"));
             Assert.AreEqual(database, loadedConfiguration.Get("infrastructure").Get("connections").Get("database"));

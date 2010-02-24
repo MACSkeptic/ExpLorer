@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TestRunConfiguration name="Local Test Run" id="35fe4886-4202-4961-9989-3188c3b05704" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
   <Description>This is a default test run configuration for a local test run.</Description>
+  <CodeCoverage enabled="true">
+    <Regular>
+      <CodeCoverageItem binaryFile="MACSkeptic.ExpLorer\bin\Release\MACSkeptic.ExpLorer.dll" pdbFile="MACSkeptic.ExpLorer\bin\Release\MACSkeptic.ExpLorer.pdb" instrumentInPlace="true" />
+    </Regular>
+  </CodeCoverage>
+  <Timeouts runTimeout="300000" testTimeout="300000" />
   <Deployment>
     <DeploymentItem filename="MACSkeptic.ExpLorer.Tests\Fixtures\" outputDirectory="Fixtures" />
   </Deployment>
