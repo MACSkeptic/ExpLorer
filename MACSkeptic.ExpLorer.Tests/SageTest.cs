@@ -45,11 +45,23 @@ namespace MACSkeptic.ExpLorer.Tests
         [DeploymentItem(@"MACSkeptic.ExpLorer.Tests\Fixtures\ConfigurationFiles\FromAssembly\connections.tale")]
         [DeploymentItem(@"MACSkeptic.ExpLorer.Tests\Fixtures\ConfigurationFiles\FromAssembly\email.tale")]
         [DeploymentItem(@"MACSkeptic.ExpLorer.Tests\Fixtures\ConfigurationFiles\FromAssembly\infrastructure.tale")]
-        public void ShouldReadTheCorrectConfigurationFile()
+        public void ShouldReadTheCorrectConfigurationFileAsALore()
         {
             var sage = new Sage(new LoreConfigurationParser(), new ConfigurationProxyProvider());
             var proxy = sage.CreateProxy<IConfiguration>();
             Assert.AreEqual("42", proxy.Answer); 
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"MACSkeptic.ExpLorer.Tests\Fixtures\ConfigurationFiles\FromAssembly\configuration.coffee")]
+        [DeploymentItem(@"MACSkeptic.ExpLorer.Tests\Fixtures\ConfigurationFiles\FromAssembly\connections.coffee")]
+        [DeploymentItem(@"MACSkeptic.ExpLorer.Tests\Fixtures\ConfigurationFiles\FromAssembly\email.coffee")]
+        [DeploymentItem(@"MACSkeptic.ExpLorer.Tests\Fixtures\ConfigurationFiles\FromAssembly\infrastructure.coffee")]
+        public void ShouldReadTheCorrectConfigurationFileAsACoffee()
+        {
+            var sage = new Sage(new CoffeeConfigurationParser(), new ConfigurationProxyProvider());
+            var proxy = sage.CreateProxy<IConfiguration>();
+            Assert.AreEqual("42", proxy.Answer);
         }
     }
 }

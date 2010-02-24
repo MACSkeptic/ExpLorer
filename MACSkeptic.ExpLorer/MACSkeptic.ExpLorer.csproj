@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="Configuration.cs" />
     <Compile Include="InvalidOrMissingConfigurationException.cs" />
+    <Compile Include="Parsers\CoffeeConfigurationParser.cs" />
+    <Compile Include="Parsers\GenericConfigurationParser.cs" />
     <Compile Include="Proxies\Interceptors\ConfigurationProxyProvider.cs" />
     <Compile Include="Proxies\IConfigurationProxyProvider.cs" />
     <Compile Include="Parameters\ConfigurationParameters.cs" />

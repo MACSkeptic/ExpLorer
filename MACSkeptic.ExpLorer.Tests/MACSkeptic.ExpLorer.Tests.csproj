@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationTest.cs" />
+    <Compile Include="Parsers\CoffeeConfigurationParserTest.cs" />
     <Compile Include="Parsers\LoreConfigurationParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxies\ConfigurationProxyTest.cs" />
@@ -81,6 +82,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Fixtures\ConfigurationFiles\connections.tale">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fixtures\ConfigurationFiles\configuration.coffee">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fixtures\ConfigurationFiles\connections.coffee">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fixtures\ConfigurationFiles\email.coffee">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fixtures\ConfigurationFiles\FromAssembly\configuration.coffee">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fixtures\ConfigurationFiles\FromAssembly\connections.coffee">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fixtures\ConfigurationFiles\FromAssembly\email.coffee">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fixtures\ConfigurationFiles\FromAssembly\infrastructure.coffee">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fixtures\ConfigurationFiles\infrastructure.coffee">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Fixtures\ConfigurationFiles\email.tale">

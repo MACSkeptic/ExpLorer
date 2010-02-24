@@ -13,11 +13,11 @@ Library for reading/parsing chains of lore/tale configuration files
 
 == SYNOPSIS:
 
-  // Parsing a lore/tale chain from a specific directory
-  var parser = new LoreConfigurationParser();
-  var configuration = parser.LoadFrom(@"Fixtures\ConfigurationFiles");
-  // Creating a proxy for this configuration that implements an Interface
-  var proxy = ConfigurationProxy.For<IConfiguration>(configuration);
+  // As of v1.1.0 it is recommended that the 'Sage' class should be used as the main entry point
+  var sage = new Sage(new CoffeeConfigurationParser(), new ConfigurationProxyProvider());
+  var proxy = sage.CreateProxy<IConfiguration>();
+  Assert.AreEqual("42", proxy.Answer);
+  
 
 == REQUIREMENTS:
 
