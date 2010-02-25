@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using MACSkeptic.ExpLorer.Utils.Extensions;
 
@@ -12,49 +13,31 @@ namespace MACSkeptic.ExpLorer.Parsers
                 throw new InvalidPathException("Path must not be empty/null");
             }
 
+            var dotExtension = "." + extension;
             if (!path.EndsWith(extension))
             {
-                path = path + "." + extension;
+                path = path + dotExtension;
             }
 
             var mainFile = new FileInfo(path);
-            if (mainFile.Exists)
+            var possibleFiles = new[]
+                                    {
+                                        path,
+                                        Path.Combine(mainFile.Directory.FullName, mainFile.Name.Substring(0, Math.Abs(mainFile.Name.IndexOf("Configuration"))) + dotExtension),
+                                        Path.Combine(mainFile.Directory.Parent.FullName, mainFile.Name),
+                                        Path.Combine(mainFile.Directory.Parent.FullName, mainFile.Name.Substring(0, Math.Abs(mainFile.Name.IndexOf("Configuration"))) + dotExtension)
+                                    };
+
+            foreach (var file in possibleFiles)
             {
-                return mainFile;
+                var fileInfo = new FileInfo(file);
+                if (fileInfo.Exists)
+                {
+                    return fileInfo;
+                }
             }
 
-            mainFile = new FileInfo(Path.Combine(mainFile.Directory.FullName, mainFile.Name.ToLower()));
-            if (mainFile.Exists)
-            {
-                return mainFile;
-            }
-
-            mainFile =
-                new FileInfo(
-                    Path.Combine(
-                        mainFile.Directory.FullName,
-                        mainFile.Name.Substring(0, 1).ToLower() + mainFile.Name.Substring(1)));
-
-            if (mainFile.Exists)
-            {
-                return mainFile;
-            }
-            mainFile = new FileInfo(path);
-            mainFile = new FileInfo(Path.Combine(mainFile.Directory.Parent.FullName, mainFile.Name));
-
-            if (mainFile.Exists)
-            {
-                return mainFile;
-            }
-            mainFile = new FileInfo(Path.Combine(mainFile.Directory.FullName, mainFile.Name.ToLower()));
-            if (mainFile.Exists)
-            {
-                return mainFile;
-            }
-            return new FileInfo(
-                Path.Combine(
-                    mainFile.Directory.FullName,
-                    mainFile.Name.Substring(0, 1).ToLower() + mainFile.Name.Substring(1)));
+            throw new NoConfigurationFileException(path);
         }
     }
 }

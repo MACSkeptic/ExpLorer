@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6E7939F5-E7D2-462B-8D39-7C6CE01B6F5B}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="ConfigurationTest.cs" />
     <Compile Include="Parsers\CoffeeConfigurationParserTest.cs" />
+    <Compile Include="Parsers\FileResolverTest.cs" />
     <Compile Include="Parsers\LoreConfigurationParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxies\ConfigurationProxyTest.cs" />
@@ -91,6 +92,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Fixtures\ConfigurationFiles\email.coffee">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fixtures\ConfigurationFiles\FileResolver\email.coffee">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Fixtures\ConfigurationFiles\FromAssembly\configuration.coffee">
