@@ -51,7 +51,7 @@ namespace MACSkeptic.ExpLorer.Parsers
 
         public virtual Configuration LoadFromCurrentAssembly()
         {
-            return LoadFromPath(new FileInfo(Assembly.GetCallingAssembly().Location).Directory.FullName);
+            return LoadFromPath(new FileInfo(Assembly.GetExecutingAssembly().CodeBase.Replace("file:///", string.Empty)).Directory.FullName);
         }
 
         private void ParseFile(FileInfo file, Configuration configuration)

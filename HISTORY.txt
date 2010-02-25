@@ -2,7 +2,9 @@
 	* Features
 		* Added the possibility to return a default value when no configuration file is found
 		* Removed specific file parsers to a generic FileResolver
-		* FileResolver now searchs for files without "Configuration" word on its name
+		* FileResolver now searches for files without "Configuration" word on its name
+	* Bugfix
+		* Fixed executing assembly
 
 === v1.1.0 (2010-02-23)
 	* Features
