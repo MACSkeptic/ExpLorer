@@ -13,13 +13,31 @@ namespace MACSkeptic.ExpLorer.Tests
     [TestClass]
     public class SageTest
     {
+        private MockFactory _factory;
+        private Sage _sage;
+        private Mock<IConfigurationParser> _parserMock;
+        private Mock<IConfigurationProxyProvider> _proxyMock;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            _factory = new MockFactory(MockBehavior.Strict);
+            _parserMock = _factory.Create<IConfigurationParser>();
+            _proxyMock = _factory.Create<IConfigurationProxyProvider>();
+            
+            _sage = new Sage(_parserMock.Object, _proxyMock.Object);
+        }
+
+        [TestMethod]
+        public void TearDown()
+        {
+            _factory.VerifyAll();
+        }
+
         [TestMethod]
         public void ShouldRequestTheCorrectFile()
         {
-            var parserMock = new Mock<IConfigurationParser>(MockBehavior.Strict);
-            var proxyMock = new Mock<IConfigurationProxyProvider>(MockBehavior.Strict);
-            var configurationMock = new Mock<IRightAnswerConfiguration>(MockBehavior.Strict);
-            var sage = new Sage(parserMock.Object, proxyMock.Object);
+            var configurationMock = _factory.Create<IRightAnswerConfiguration>();
 
             var filePath =
                 "#{path}\\#{file}".ApplyArguments(
@@ -30,15 +48,15 @@ namespace MACSkeptic.ExpLorer.Tests
                         });
 
             var configuration = new Configuration("RightAnswerConfiguration");
-            parserMock
+            _parserMock
                 .Setup(parser => parser.LoadFromFile(filePath))
                 .Returns(configuration);
 
-            proxyMock.Setup(proxy => proxy.For(typeof (IRightAnswerConfiguration), configuration)).Returns(configurationMock.Object);
+            _proxyMock.Setup(proxy => proxy.For(typeof (IRightAnswerConfiguration), configuration)).Returns(configurationMock.Object);
             
-            sage.CreateProxy<IRightAnswerConfiguration>();
+            _sage.CreateProxy<IRightAnswerConfiguration>();
 
-            parserMock.VerifyAll();
+            _parserMock.VerifyAll();
         }
 
         [TestMethod]
@@ -63,6 +81,18 @@ namespace MACSkeptic.ExpLorer.Tests
             var sage = new Sage(new ConfigurationParser(new FileResolver(), "coffee"), new ConfigurationProxyProvider());
             var proxy = sage.CreateProxy<IConfiguration>();
             Assert.AreEqual("42", proxy.Answer);
+        }
+
+        [TestMethod]
+        public void ShouldReturnDefaultValueWhenFileDoesNotExists()
+        {
+            _parserMock.Setup(
+                parser => parser.LoadFromFile(It.IsAny<string>())).Throws(new NoConfigurationFileException(""));
+
+            var configurationMock = _factory.Create<IConfiguration>();
+            var configuration = _sage.CreateProxy(configurationMock.Object);
+
+            Assert.AreSame(configurationMock.Object, configuration);
         }
     }
 }

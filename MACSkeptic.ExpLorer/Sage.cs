@@ -20,7 +20,20 @@ namespace MACSkeptic.ExpLorer
         public T CreateProxy<T>()
             where T : class
         {
-            return (T)CreateProxyFor(typeof (T));
+            return (T)CreateProxyFor(typeof(T));
+        }
+
+        public T CreateProxy<T>(T @object)
+            where T : class
+        {
+            try
+            {
+                return (T)CreateProxyFor(typeof(T));
+            } 
+            catch (NoConfigurationFileException e)
+            {
+                return @object;
+            }
         }
 
         public object CreateProxyFor(Type type)
