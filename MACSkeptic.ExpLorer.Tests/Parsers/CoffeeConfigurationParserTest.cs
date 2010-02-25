@@ -16,7 +16,7 @@ namespace MACSkeptic.ExpLorer.Tests.Parsers
             var smtp = new Configuration("smtp", "massive-ultrarelay", c => c.BelongingTo(email));
             var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
 
-            var parser = new CoffeeConfigurationParser();
+            var parser = new ConfigurationParser(new FileResolver(), "coffee");
             var loadedConfiguration = parser.LoadFromFile(@"Fixtures\ConfigurationFiles\configuration");
 
             Assert.AreEqual(smtp, loadedConfiguration.Get("infrastructure").Get("email").Get("smtp"));

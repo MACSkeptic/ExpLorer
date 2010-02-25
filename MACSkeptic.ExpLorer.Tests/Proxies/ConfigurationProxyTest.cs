@@ -39,7 +39,7 @@ namespace MACSkeptic.ExpLorer.Tests.Proxies
             var email = new Configuration("email", c => c.BelongingTo(infrastructure));
             var smtp = new Configuration("smtp", "massive-relay", c => c.BelongingTo(email));
             var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
-            var proxy = ConfigurationProxy.For<IConfiguration>(new LoreConfigurationParser());
+            var proxy = ConfigurationProxy.For<IConfiguration>(new ConfigurationParser(new FileResolver(), "lore", "tale"));
             Assert.AreEqual(database.Value, proxy.Infrastructure.Connections.Database);
             Assert.AreEqual(smtp.Value, proxy.Infrastructure.Email.Smtp);
         }

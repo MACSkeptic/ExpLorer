@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using MACSkeptic.ExpLorer.Parsers;
+using MACSkeptic.ExpLorer.Proxies;
 
 namespace MACSkeptic.ExpLorer
 {

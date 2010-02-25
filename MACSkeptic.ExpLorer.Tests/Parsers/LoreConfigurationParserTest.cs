@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 using MACSkeptic.ExpLorer.Parsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MACSkeptic.ExpLorer.Utils.Extensions;
@@ -14,7 +12,7 @@ namespace MACSkeptic.ExpLorer.Tests.Parsers
         [ExpectedException(typeof(TooManyConfigurationFilesException))]
         public void ShouldNotifyAboutAPathWithMultipleLoreFiles()
         {
-            var parser = new LoreConfigurationParser();
+            var parser = new ConfigurationParser(new FileResolver(), "lore", "tale");
             try
             {
                 parser.LoadFromPath(@"Fixtures\ConfigurationFiles\MultipleLores");
@@ -30,7 +28,7 @@ namespace MACSkeptic.ExpLorer.Tests.Parsers
         [ExpectedException(typeof(NoConfigurationFileException))]
         public void ShouldNotifyAboutAPathWithNoLoreFiles()
         {
-            var parser = new LoreConfigurationParser();
+            var parser = new ConfigurationParser(new FileResolver(), "lore", "tale");
             try
             {
                 parser.LoadFromPath(@"Fixtures\ConfigurationFiles\NoLores");
@@ -53,7 +51,7 @@ namespace MACSkeptic.ExpLorer.Tests.Parsers
             var smtp = new Configuration("smtp", "mass-relay", c => c.BelongingTo(email));
             var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
 
-            var parser = new LoreConfigurationParser();
+            var parser = new ConfigurationParser(new FileResolver(), "lore", "tale");
             var loadedConfiguration = parser.LoadFromPath(@"Fixtures\ConfigurationFiles");
 
             Assert.AreEqual(smtp, loadedConfiguration.Get("infrastructure").Get("email").Get("smtp"));
@@ -74,7 +72,7 @@ namespace MACSkeptic.ExpLorer.Tests.Parsers
             var smtp = new Configuration("smtp", "massive-relay", c => c.BelongingTo(email));
             var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
 
-            var parser = new LoreConfigurationParser();
+            var parser = new ConfigurationParser(new FileResolver(), "lore", "tale");
             var loadedConfiguration = parser.LoadFromCurrentAssembly();
 
             Assert.AreEqual(smtp, loadedConfiguration.Get("infrastructure").Get("email").Get("smtp"));

@@ -1,6 +1,6 @@
 using System;
 
-namespace MACSkeptic.ExpLorer
+namespace MACSkeptic.ExpLorer.Proxies
 {
     public interface IConfigurationProxyProvider
     {

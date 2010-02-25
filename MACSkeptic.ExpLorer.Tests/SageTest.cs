@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 using MACSkeptic.ExpLorer.Parsers;
+using MACSkeptic.ExpLorer.Proxies;
 using MACSkeptic.ExpLorer.Proxies.Interceptors;
 using MACSkeptic.ExpLorer.Tests.Proxies.Interfaces;
 using MACSkeptic.ExpLorer.Utils.Extensions;
@@ -47,7 +48,7 @@ namespace MACSkeptic.ExpLorer.Tests
         [DeploymentItem(@"MACSkeptic.ExpLorer.Tests\Fixtures\ConfigurationFiles\FromAssembly\infrastructure.tale")]
         public void ShouldReadTheCorrectConfigurationFileAsALore()
         {
-            var sage = new Sage(new LoreConfigurationParser(), new ConfigurationProxyProvider());
+            var sage = new Sage(new ConfigurationParser(new FileResolver(), "lore", "tale"), new ConfigurationProxyProvider());
             var proxy = sage.CreateProxy<IConfiguration>();
             Assert.AreEqual("42", proxy.Answer); 
         }
@@ -59,7 +60,7 @@ namespace MACSkeptic.ExpLorer.Tests
         [DeploymentItem(@"MACSkeptic.ExpLorer.Tests\Fixtures\ConfigurationFiles\FromAssembly\infrastructure.coffee")]
         public void ShouldReadTheCorrectConfigurationFileAsACoffee()
         {
-            var sage = new Sage(new CoffeeConfigurationParser(), new ConfigurationProxyProvider());
+            var sage = new Sage(new ConfigurationParser(new FileResolver(), "coffee"), new ConfigurationProxyProvider());
             var proxy = sage.CreateProxy<IConfiguration>();
             Assert.AreEqual("42", proxy.Answer);
         }
