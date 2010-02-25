@@ -68,7 +68,7 @@ namespace MACSkeptic.ExpLorer.Parsers
                 {
                     var splat = line.Split(':');
                     var name = splat.First().Trim();
-                    var value = splat.Last().Trim();
+                    var value = splat.Skip(1).JoinAsString(":").Trim();
                     configuration.Add(new Configuration(name, value));
                     continue;
                 }

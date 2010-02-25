@@ -5,6 +5,7 @@
 		* FileResolver now searches for files without "Configuration" word on its name
 	* Bugfix
 		* Fixed executing assembly
+		* Fixed bug reading configuration values with ":"
 
 === v1.1.0 (2010-02-23)
 	* Features

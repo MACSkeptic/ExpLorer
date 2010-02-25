@@ -58,6 +58,16 @@ namespace MACSkeptic.ExpLorer.Tests.Parsers
             Assert.AreEqual(database, loadedConfiguration.Get("infrastructure").Get("connections").Get("database"));
         }
 
+
+        [TestMethod]
+        public void ShouldCorrectlyParseConfigurationValuesThatContainColonOnThem()
+        {
+            var parser = new ConfigurationParser(new FileResolver(), "lore", "tale");
+            var loadedConfiguration = parser.LoadFromPath(@"Fixtures\ConfigurationFiles");
+
+            Assert.AreEqual("42:i:j:k", loadedConfiguration.Get("complexAnswer").Value);
+        }
+
         [TestMethod]
         [DeploymentItem(@"MACSkeptic.ExpLorer.Tests\Fixtures\ConfigurationFiles\FromAssembly\configuration.lore")]
         [DeploymentItem(@"MACSkeptic.ExpLorer.Tests\Fixtures\ConfigurationFiles\FromAssembly\connections.tale")]
