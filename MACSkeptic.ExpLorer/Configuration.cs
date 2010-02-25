@@ -80,12 +80,9 @@ namespace MACSkeptic.ExpLorer
         {
             var shallowRepresentation = "{MACSkeptic.ExpLorer.Configuration: {#{Name}: #{Value}}}".ApplyArguments(this);
 
-            if (shallow)
-            {
-                return shallowRepresentation;
-            }
-
-            return null;
+            return shallow
+                       ? shallowRepresentation
+                       : null;
         }
 
         public override string ToString()

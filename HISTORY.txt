@@ -1,3 +1,9 @@
+=== v1.2.0 (2010-02-23)
+	* Features
+		* Added the possibility to return a default value when no configuration file is found
+		* Removed specific file parsers to a generic FileResolver
+		* FileResolver now searchs for files without "Configuration" word on its name
+
 === v1.1.0 (2010-02-23)
 	* Features
 		* Added a sage (single entry point for automatically creating proxies from interfaces)
