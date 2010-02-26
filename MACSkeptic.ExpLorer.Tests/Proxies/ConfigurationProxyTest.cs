@@ -1,5 +1,6 @@
 ﻿using MACSkeptic.ExpLorer.Parsers;
 using MACSkeptic.ExpLorer.Proxies;
+using MACSkeptic.ExpLorer.Proxies.Interceptors;
 using MACSkeptic.ExpLorer.Tests.Proxies.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -39,9 +40,35 @@ namespace MACSkeptic.ExpLorer.Tests.Proxies
             var email = new Configuration("email", c => c.BelongingTo(infrastructure));
             var smtp = new Configuration("smtp", "massive-relay", c => c.BelongingTo(email));
             var database = new Configuration("database", "localhost", c => c.BelongingTo(connections));
-            var proxy = ConfigurationProxy.For<IConfiguration>(new ConfigurationParser(new FileResolver(), "lore", "tale"));
+            var proxy =
+                ConfigurationProxy.For<IConfiguration>(new ConfigurationParser(new FileResolver(), "lore", "tale"));
             Assert.AreEqual(database.Value, proxy.Infrastructure.Connections.Database);
             Assert.AreEqual(smtp.Value, proxy.Infrastructure.Email.Smtp);
+        }
+
+        [TestMethod]
+        public void ProxyShouldProvideASurrogateConfigurationIfNeeded()
+        {
+            var configuration = new Configuration("configuration");
+            var surrogate = new Configuration(
+                "surrogate",
+                c => c.With(new Configuration("package.onm", "debug"), new Configuration("package.two", "info"))
+                         .BelongingTo(configuration));
+            var proxy = ConfigurationProxy.For<IConfiguration>(configuration);
+            Assert.AreEqual(surrogate, proxy.Surrogate);
+        }
+
+
+        [TestMethod]
+        public void ProxyShouldProvideASurrogateConfigurationIfNeededNewMethod()
+        {
+            var configuration = new Configuration("configuration");
+            var surrogate = new Configuration(
+                "surrogate",
+                c => c.With(new Configuration("package.onm", "debug"), new Configuration("package.two", "info"))
+                         .BelongingTo(configuration));
+            var proxy = (IConfiguration) new ConfigurationProxyProvider().For(typeof(IConfiguration), configuration);
+            Assert.AreEqual(surrogate, proxy.Surrogate);
         }
     }
 }

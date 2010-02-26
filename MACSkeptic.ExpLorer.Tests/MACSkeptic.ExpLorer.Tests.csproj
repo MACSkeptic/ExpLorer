@@ -91,6 +91,9 @@
     <None Include="Fixtures\ConfigurationFiles\connections.coffee">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Fixtures\ConfigurationFiles\surrogate.tale">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Fixtures\ConfigurationFiles\email.coffee">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

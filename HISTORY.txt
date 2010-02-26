@@ -1,3 +1,6 @@
+=== v1.2.1 (2010-02-26)
+	* Features
+		* Configuration interfaces now can have raw configuration members
 === v1.2.0 (2010-02-23)
 	* Features
 		* Added the possibility to return a default value when no configuration file is found

@@ -48,7 +48,7 @@ namespace MACSkeptic.ExpLorer
             }
         }
 
-        protected virtual IDictionary<string, Configuration> Underlings
+        public virtual IDictionary<string, Configuration> Underlings
         {
             get
             {

@@ -37,7 +37,8 @@ namespace MACSkeptic.ExpLorer.Proxies.Interceptors
             var type = method.ReturnType;
 
             return ItReturnsAnInterface(type, name, invocation) ||
-                   ItReturnsAString(type, name, invocation);
+                   ItReturnsAString(type, name, invocation) ||
+                   ItReturnsAConfiguration(type, name, invocation);
         }
 
         private bool ItReturnsAnInterface(Type type, string name, IInvocation invocation)
@@ -59,6 +60,17 @@ namespace MACSkeptic.ExpLorer.Proxies.Interceptors
             }
 
             invocation.ReturnValue = _configuration.Get(name).Value;
+            return true;
+        }
+
+        private bool ItReturnsAConfiguration(Type type, string name, IInvocation invocation)
+        {
+            if (typeof(Configuration) != type)
+            {
+                return false;
+            }
+
+            invocation.ReturnValue = _configuration.Get(name);
             return true;
         }
     }
