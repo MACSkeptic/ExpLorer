@@ -30,7 +30,7 @@ namespace MACSkeptic.ExpLorer
             {
                 return (T)CreateProxyFor(typeof(T));
             } 
-            catch (NoConfigurationFileException e)
+            catch
             {
                 return @object;
             }

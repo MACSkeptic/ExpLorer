@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using MACSkeptic.ExpLorer.Parsers;
 using MACSkeptic.ExpLorer.Proxies;
@@ -84,10 +85,10 @@ namespace MACSkeptic.ExpLorer.Tests
         }
 
         [TestMethod]
-        public void ShouldReturnDefaultValueWhenFileDoesNotExists()
+        public void ShouldReturnDefaultValueWhenSomethingBadHappens()
         {
             _parserMock.Setup(
-                parser => parser.LoadFromFile(It.IsAny<string>())).Throws(new NoConfigurationFileException(""));
+                parser => parser.LoadFromFile(It.IsAny<string>())).Throws(new Exception());
 
             var configurationMock = _factory.Create<IConfiguration>();
             var configuration = _sage.CreateProxy(configurationMock.Object);
